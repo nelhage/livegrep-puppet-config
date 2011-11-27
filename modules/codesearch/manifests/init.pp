@@ -28,11 +28,7 @@ class codesearch {
     group  => 'root'
   }
 
-  package { 'git':
-    ensure => installed
-  }
-
-  package { 'tmux':
+  package { ['git', 'vim-nox', "emacs23-nox", 'tmux']:
     ensure => installed
   }
 
@@ -49,11 +45,8 @@ class codesearch {
 
   # Development stuff
 
-  package { 'build-essential':
+  package { ['build-essential', 'libsparsehash-dev']:
     ensure => installed
   }
 
-  package { 'libsparsehash-dev':
-    ensure => installed
-  }
 }
