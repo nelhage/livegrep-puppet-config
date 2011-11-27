@@ -36,9 +36,11 @@ class codesearch {
     ensure => installed
   }
 
-  file { '/home/nelhage/.tmux.conf':
-    source => 'puppet:///modules/codesearch/tmux.conf',
-    mode   => '0640',
+  file { '/home/nelhage/':
+    source => 'puppet:///modules/codesearch/nelhage',
+    ensure => 'directory',
+    recurse => 'true',
+    purge  => 'false',
     owner  => 'nelhage',
     group  => 'nelhage',
     require => User['nelhage']
