@@ -43,13 +43,17 @@ class codesearch {
     require => User['nelhage']
   }
 
-  file { '/home/nelhage/.tmux.conf':
-    source => 'puppet:///modules/codesearch/nelhage/.tmux.conf',
-    ensure => 'file',
-    owner  => 'nelhage',
-    group  => 'nelhage',
-    require => User['nelhage']
+  define dotfile {
+    file { "/home/nelhage/.${name}":
+      source => "puppet:///modules/codesearch/nelhage/.${name}",
+      ensure => 'file',
+      owner  => 'nelhage',
+      group  => 'nelhage',
+      require => User['nelhage']
+    }
   }
+
+  dotfile { ['tmux.conf', 'bashrc', 'environment']: }
 
   sshkey { 'nelhage.com':
     type => 'ssh-rsa',
@@ -59,7 +63,7 @@ class codesearch {
   # Development stuff
 
   package { ['build-essential', 'libsparsehash-dev', 'libjson0-dev',
-             'cmake', 'zlib1g-dev']:
+             'cmake', 'zlib1g-dev', 'python', 'libssl-dev']:
     ensure => installed
   }
 
@@ -99,5 +103,11 @@ class codesearch {
   checkout { '/home/nelhage/gflags':
     source  => 'http://google-gflags.googlecode.com/svn/trunk',
     provider => 'svn'
+  }
+  checkout { '/home/nelhage/node':
+    source => 'https://github.com/joyent/node.git'
+  }
+  checkout { '/home/nelhage/npm':
+    source => 'https://github.com/isaacs/npm.git'
   }
 }
