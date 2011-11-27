@@ -32,11 +32,19 @@ class codesearch {
     ensure => installed
   }
 
-  file { '/home/nelhage/':
-    source => 'puppet:///modules/codesearch/nelhage',
+  file { '/home/nelhage/.ssh':
+    source => 'puppet:///modules/codesearch/nelhage/.ssh',
     ensure => 'directory',
     recurse => 'true',
     purge  => 'false',
+    owner  => 'nelhage',
+    group  => 'nelhage',
+    require => User['nelhage']
+  }
+
+  file { '/home/nelhage/.tmux.conf':
+    source => 'puppet:///modules/codesearch/nelhage/.tmux.conf',
+    ensure => 'file',
     owner  => 'nelhage',
     group  => 'nelhage',
     require => User['nelhage']
@@ -53,19 +61,19 @@ class codesearch {
     ensure => installed
   }
 
-  define checkout ($source) {
+  define checkout ($source, $provider = 'git') {
     vcsrepo { "$name":
       ensure   => present,
       provider => git,
       source   => $source,
-      require  => [File['/home/nelhage'], Sshkey['nelhage.com']],
+      require  => [User['nelhage'], Sshkey['nelhage.com']],
       identity => '/home/nelhage/.ssh/id_rsa'
     }
 
-    file { "$name":
-      owner   => 'nelhage',
-      group   => 'nelhage',
-      require => Vcsrepo[$name],
+    exec { "chown $name":
+      command     => "/bin/chown -R nelhage:nelhage $name",
+      refreshonly => true,
+      subscribe   => Vcsrepo[$name]
     }
   }
 
