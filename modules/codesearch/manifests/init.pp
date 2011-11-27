@@ -29,7 +29,7 @@ class codesearch {
   }
 
   package { ['git', 'vim-nox', "emacs23-nox", 'tmux',
-             'psutils', 'psmisc', 'strace']:
+             'psutils', 'psmisc', 'strace', 'subversion']:
     ensure => installed
   }
 
@@ -63,12 +63,20 @@ class codesearch {
     ensure => installed
   }
 
+  file { '/home/nelhage/sw':
+    ensure => 'directory',
+    owner  => 'nelhage',
+    group  => 'nelhage',
+    checksum => 'none'
+  }
+
   define checkout ($source, $provider = 'git') {
     vcsrepo { "$name":
       ensure   => present,
-      provider => git,
+      provider => $provider,
       source   => $source,
-      require  => [User['nelhage'], Sshkey['nelhage.com']],
+      require  => [User['nelhage'], Sshkey['nelhage.com'],
+                   Package['git'], Package['subversion']],
       identity => '/home/nelhage/.ssh/id_rsa'
     }
 
@@ -81,5 +89,15 @@ class codesearch {
 
   checkout { '/home/nelhage/codesearch':
     source => "git@nelhage.com:codesearch"
+  }
+  checkout { '/home/nelhage/libgit2':
+    source => "https://github.com/libgit2/libgit2.git"
+  }
+  checkout { '/home/nelhage/linux':
+    source => "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git"
+  }
+  checkout { '/home/nelhage/gflags':
+    source  => 'http://google-gflags.googlecode.com/svn/trunk',
+    provider => 'svn'
   }
 }
