@@ -1,0 +1,10 @@
+#!/bin/sh
+
+host="$1"
+here="$(dirname "$0")"
+
+rsync -Pax --exclude=/.git/ "$here/" root@$host:/etc/
+
+ssh -lroot $host sh <<'EOF'
+puppet -e 'include codesearch'
+EOF
