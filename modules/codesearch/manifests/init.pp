@@ -42,6 +42,10 @@ class codesearch {
     require => User['nelhage']
   }
 
+  sshkey { 'nelhage.com':
+    type => 'ssh-rsa',
+    key  => 'AAAAB3NzaC1yc2EAAAABIwAAAQEAu8bGx+toQQl4ey3UgiQwj9RmCCpJbIyGDQnzCb0yMsMbAfLQwTRyIo9P71YJ3PYL+Egn2iEhWHZpz/1cetJWED8EcGAliuFhWjIA71CgOVGpQMlMCPeWN0rhvadqmHzA4R6/QRp4hjbxDPS7qmfM0ZwbMl4eDFmdifrdVTAFEmSrSunXBDUiRFbToMOA8SIhlHs/O07SJ2OhM0UgHOTZzCuQJ2fVWpzQHbgxrYRqTshXRgA2eIi9pBFCyOH6WUWS+YNCV4xU6yJQdmayA/q2yer0JWlU6a06fiTpSNCN8HZdhuEaVfka/7jIrFmO+jGxKTcvhqTNfNQjDnqaQCejpw=='
+  }
 
   # Development stuff
 
@@ -49,4 +53,23 @@ class codesearch {
     ensure => installed
   }
 
+  define checkout ($source) {
+    vcsrepo { "$name":
+      ensure   => present,
+      provider => git,
+      source   => $source,
+      require  => [File['/home/nelhage'], Sshkey['nelhage.com']],
+      identity => '/home/nelhage/.ssh/id_rsa'
+    }
+
+    file { "$name":
+      owner   => 'nelhage',
+      group   => 'nelhage',
+      require => Vcsrepo[$name],
+    }
+  }
+
+  checkout { '/home/nelhage/codesearch':
+    source => "git@nelhage.com:codesearch"
+  }
 }
