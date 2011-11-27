@@ -23,8 +23,35 @@ class codesearch {
 
   file { '/etc/sudoers.d/01nelhage':
     source => 'puppet:///modules/codesearch/01nelhage',
-    mode   => '0400',
+    mode   => '0440',
     owner  => 'root',
     group  => 'root'
+  }
+
+  package { 'git':
+    ensure => installed
+  }
+
+  package { 'tmux':
+    ensure => installed
+  }
+
+  file { '/home/nelhage/.tmux.conf':
+    source => 'puppet:///modules/codesearch/tmux.conf',
+    mode   => '0640',
+    owner  => 'nelhage',
+    group  => 'nelhage',
+    require => User['nelhage']
+  }
+
+
+  # Development stuff
+
+  package { 'build-essential':
+    ensure => installed
+  }
+
+  package { 'libsparsehash-dev':
+    ensure => installed
   }
 }
