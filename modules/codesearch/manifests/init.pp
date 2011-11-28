@@ -65,7 +65,8 @@ class codesearch {
 
   package { ['build-essential', 'libsparsehash-dev', 'libjson0-dev',
              'cmake', 'zlib1g-dev', 'python', 'libssl-dev', 'gdb',
-             'g++-multilib', 'lib32z1-dev', 'ia32-libs']:
+             'g++-multilib', 'lib32z1-dev', 'ia32-libs', 'autotools-dev',
+             'autoconf', 'libtool']:
     ensure => installed
   }
 
@@ -119,5 +120,8 @@ class codesearch {
   }
   checkout { '/home/nelhage/npm':
     source => 'https://github.com/isaacs/npm.git'
+  }
+  checkout { '/home/nelhage/json-c':
+    source => 'https://github.com/json-c/json-c.git'
   }
 }
