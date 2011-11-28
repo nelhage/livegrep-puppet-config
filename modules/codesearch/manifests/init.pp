@@ -3,6 +3,7 @@ class codesearch {
     'nelhage':
       uid        => 1000,
       managehome => true,
+      shell      => '/bin/bash',
   }
 
   package { 'sudo':
