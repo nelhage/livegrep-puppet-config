@@ -1,0 +1,32 @@
+; -*- mode: conf-windows -*-
+[alias]
+        st=status
+        ci=commit
+        co=checkout
+        br=branch
+        rb=rebase
+        signoff=commit --amend --signoff -C HEAD
+        amend=commit --amend -C HEAD
+	git = !git
+	rc = rebase --continue
+	c-p = cherry-pick
+	pl = log --graph --oneline
+	k = !gitk
+	rm-orig = !git git for-each-ref --format=\"%(refname)\" refs/original/ | xargs -rn1 git update-ref -d
+	pff = pull --ff-only
+	mff = merge --ff-only
+[user]
+        name=Nelson Elhage
+	email = nelhage@nelhage.com
+[color]
+	ui = auto
+[merge]
+        conflictstyle = diff3
+[push]
+	default = current
+[branch]
+	autosetuprebase = always
+[pager]
+	grep = false
+[rebase]
+	autosquash = true
