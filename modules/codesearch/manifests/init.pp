@@ -64,7 +64,8 @@ class codesearch {
   # Development stuff
 
   package { ['build-essential', 'libsparsehash-dev', 'libjson0-dev',
-             'cmake', 'zlib1g-dev', 'python', 'libssl-dev']:
+             'cmake', 'zlib1g-dev', 'python', 'libssl-dev', 'gdb',
+             'g++-multilib', 'lib32z1-dev', 'ia32-libs']:
     ensure => installed
   }
 
@@ -75,14 +76,15 @@ class codesearch {
     checksum => 'none'
   }
 
-  define checkout ($source, $provider = 'git') {
+  define checkout ($source, $provider = 'git', $revision = undef) {
     vcsrepo { "$name":
       ensure   => present,
       provider => $provider,
       source   => $source,
       require  => [User['nelhage'], Sshkey['nelhage.com'],
                    Package['git'], Package['subversion']],
-      identity => '/home/nelhage/.ssh/id_rsa'
+      identity => '/home/nelhage/.ssh/id_rsa',
+      revision => $revision
     }
 
     exec { "chown $name":
@@ -93,7 +95,13 @@ class codesearch {
   }
 
   checkout { '/home/nelhage/codesearch':
-    source => "git@nelhage.com:codesearch"
+    source   => "git@nelhage.com:codesearch",
+    revision => 'origin/web-live'
+  }
+  file { '/home/nelhage/codesearch/Makefile.config':
+    source   => "puppet:///modules/codesearch/Makefile.config",
+    owner    => 'nelhage',
+    group    => 'nelhage',
   }
   checkout { '/home/nelhage/libgit2':
     source => "https://github.com/libgit2/libgit2.git"
@@ -106,7 +114,8 @@ class codesearch {
     provider => 'svn'
   }
   checkout { '/home/nelhage/node':
-    source => 'https://github.com/joyent/node.git'
+    source => 'https://github.com/joyent/node.git',
+    revision => 'v0.5.10'
   }
   checkout { '/home/nelhage/npm':
     source => 'https://github.com/isaacs/npm.git'
