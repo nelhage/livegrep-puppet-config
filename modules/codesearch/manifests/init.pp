@@ -29,6 +29,13 @@ class codesearch {
     group  => 'root'
   }
 
+  file { '/etc/security/limits.d/memlock.conf':
+    source => 'puppet:///modules/codesearch/memlock.conf',
+    mode   => '0644',
+    owner  => 'root',
+    group  => 'root'
+  }
+
   package { ['git', 'vim-nox', "emacs23-nox", 'tmux',
              'psutils', 'psmisc', 'strace', 'subversion']:
     ensure => installed
