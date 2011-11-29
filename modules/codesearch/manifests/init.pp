@@ -110,6 +110,7 @@ class codesearch {
     source   => "puppet:///modules/codesearch/Makefile.config",
     owner    => 'nelhage',
     group    => 'nelhage',
+    require  => Vcsrepo['/home/nelhage/codesearch']
   }
   checkout { '/home/nelhage/libgit2':
     source => "https://github.com/libgit2/libgit2.git"
