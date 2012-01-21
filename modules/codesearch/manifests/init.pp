@@ -73,7 +73,7 @@ class codesearch {
   package { ['build-essential', 'libsparsehash-dev', 'libjson0-dev',
              'cmake', 'zlib1g-dev', 'python', 'libssl-dev', 'gdb',
              'g++-multilib', 'lib32z1-dev', 'ia32-libs', 'autotools-dev',
-             'autoconf', 'libtool']:
+             'autoconf', 'libtool', 'libboost-dev']:
     ensure => installed
   }
 
@@ -104,10 +104,16 @@ class codesearch {
 
   checkout { '/home/nelhage/codesearch':
     source   => "git@nelhage.com:codesearch",
-    revision => 'origin/web-live'
+    revision => 'origin/master'
   }
   file { '/home/nelhage/codesearch/Makefile.config':
     source   => "puppet:///modules/codesearch/Makefile.config",
+    owner    => 'nelhage',
+    group    => 'nelhage',
+    require  => Vcsrepo['/home/nelhage/codesearch']
+  }
+  file { '/home/nelhage/codesearch/web/config.local.js':
+    source   => "puppet:///modules/codesearch/config.local.js",
     owner    => 'nelhage',
     group    => 'nelhage',
     require  => Vcsrepo['/home/nelhage/codesearch']
@@ -124,7 +130,7 @@ class codesearch {
   }
   checkout { '/home/nelhage/node':
     source => 'https://github.com/joyent/node.git',
-    revision => 'v0.5.10'
+    revision => 'origin/v0.6'
   }
   checkout { '/home/nelhage/npm':
     source => 'https://github.com/isaacs/npm.git'
