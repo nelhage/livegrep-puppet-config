@@ -121,9 +121,9 @@ class codesearch {
   checkout { '/home/nelhage/libgit2':
     source => "https://github.com/libgit2/libgit2.git"
   }
-  checkout { '/home/nelhage/linux':
-    source => "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git"
-  }
+#  checkout { '/home/nelhage/linux':
+#    source => "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git"
+#  }
   checkout { '/home/nelhage/gflags':
     source  => 'http://google-gflags.googlecode.com/svn/trunk',
     provider => 'svn'
