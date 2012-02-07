@@ -131,13 +131,20 @@ class codesearch {
 #  checkout { '/home/nelhage/linux':
 #    source => "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git"
 #  }
+
+  file { '/home/nelhage/linux':
+    ensure => 'directory',
+    owner  => 'nelhage',
+    group  => 'nelhage',
+  }
+
   checkout { '/home/nelhage/gflags':
     source  => 'http://google-gflags.googlecode.com/svn/trunk',
     provider => 'svn'
   }
   checkout { '/home/nelhage/node':
     source => 'https://github.com/joyent/node.git',
-    revision => 'origin/v0.6'
+    revision => 'v0.6'
   }
   checkout { '/home/nelhage/npm':
     source => 'https://github.com/isaacs/npm.git'
@@ -145,4 +152,6 @@ class codesearch {
   checkout { '/home/nelhage/json-c':
     source => 'https://github.com/json-c/json-c.git'
   }
+
+  include codesearch::nginx
 }
