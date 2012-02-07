@@ -3,7 +3,7 @@
 host="$1"
 here="$(dirname "$0")"
 
-rsync -Pax --exclude=.git "$here/" root@$host:/etc/puppet/
+rsync -Pax --exclude=.git --delete "$here/" root@$host:/etc/puppet/
 
 ssh -lroot $host sh <<'EOF'
 puppet apply -e 'include codesearch'
