@@ -18,6 +18,13 @@ class codesearch {
       user   => $user,
       key    => 'AAAAB3NzaC1kc3MAAACBAJbQ2LSW72VlhOlaJSnfD3HJtFuHcqzDAULHzW5qusmcPQ0NJ0fL80M6wFDKONwOmIvM2r7q1I0P8B30AgQy/kIiRH1dEX3bSBlqaHx1rJV0+fSvrIkG6UDQ//JR8zGONtUBYjHnVRnMgXVBRXYJrkVN2/iwnN94aYareDzrVGW1AAAAFQCYfEJmylkxGiEnF/HZ81/mA4NDEQAAAIBQlay7gtJk0ibPtXXyz+mtK8A1EjzII7OFVUpE0SgxDDqCc//sfVyustpmkB0fKxjlaKN0HktuaZVpD5IpKNmSCYAG99wT0/5Ezg2dYjEVI/S9rT5GC5sewtH9p/metTSF14Uk11GwijEv4k62Hb8uElm6b4UKDi28dOrTWMM7nAAAAIBx/I+tx9dpwl5tt6Y6uYbvgJo0Poo+98e1YjY4R3RGrPuuq/BeWG6knTVAwPsFuFTnBG9X/SefV+7O/TuISQ+wW9Q6Khslv9hCSzdoko5FLc+wHXTW3BCINDbVryCR3cEsPJk9PghsiNuitFZrgyJIDc53uEiZYgEk/7QqP1zhQQ=='
     }
+
+    ssh_authorized_key { "nelhage@psychotique/$user":
+      ensure => present,
+      type   => 'ssh-rsa',
+      user   => $user,
+      key    => 'AAAAB3NzaC1yc2EAAAABIwAAAQEAu/fEf/HZ8pySx/WKc2GzhCfjLYHorVfRnxVPnu5vJUiVwE311rRkSs64Qz0E017SbapEBI8LS+1dpHr85rgjQINaXN36C/z5KJ0kQFQ56kqqMk6UlnutoogY26NEfk9wwWj4FMStXVGCQUIvBxW6fMWA/kNSNFpecWOmI2sAYcNpJ6nqXUVz3HHYDbStltQwifMkgmkKM2Wps2Gdp07ltz6l/q75IEay21SQz+k4PMBbrJut+I3V2T+IjRnU4FUEfYtQMxy2taLUghIaiRLzWSO9j21wPMxgCSasholy4i2+OjAPCkMh/y/yPW6s3uTsvO2nsmQ67Hq8lVq6j0YO6Q=='
+    }
   }
 
   ssh_keys { ['root', 'nelhage']: }
