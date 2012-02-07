@@ -1,0 +1,46 @@
+#!/bin/sh
+
+set -e;
+
+cd "$(dirname "$0")"
+
+(
+    cd gflags
+    ./configure  --prefix ~/sw/
+    make -j4
+    make install
+)
+
+(
+    cd codesearch/re2
+    make -j4
+)
+
+(
+    mkdir -p libgit2/build
+    cd libgit2/build
+    cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/sw
+    cmake --build . --target install
+)
+
+(
+    cd json-c
+    autoreconf -fvi
+    ./configure --prefix ~/sw
+    make -j4
+    make install
+)
+
+(
+    cd node
+    ./configure  --prefix ~/sw/
+    make -j4
+    make install
+)
+
+(
+    cd npm
+    ./configure  --prefix=~/sw/
+    make -j4
+    make install
+)
