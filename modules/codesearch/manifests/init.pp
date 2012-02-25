@@ -132,12 +132,6 @@ class codesearch {
 #    source => "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git"
 #  }
 
-  file { '/home/nelhage/linux':
-    ensure => 'directory',
-    owner  => 'nelhage',
-    group  => 'nelhage',
-  }
-
   checkout { '/home/nelhage/gflags':
     source  => 'http://google-gflags.googlecode.com/svn/trunk',
     provider => 'svn'
@@ -154,4 +148,5 @@ class codesearch {
   }
 
   include codesearch::nginx
+  include codesearch::app
 }
