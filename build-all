@@ -44,3 +44,9 @@ cd "$(dirname "$0")"
     make -j4
     make install
 )
+
+(
+    cd codesearch
+    npm install .
+    make -j4
+)
