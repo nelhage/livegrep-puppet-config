@@ -99,13 +99,9 @@ class codesearch {
       require  => [User['nelhage'], Sshkey['nelhage.com'],
                    Package['git'], Package['subversion']],
       identity => '/home/nelhage/.ssh/id_rsa',
-      revision => $revision
-    }
-
-    exec { "chown $name":
-      command     => "/bin/chown -R nelhage:nelhage $name",
-      refreshonly => true,
-      subscribe   => Vcsrepo[$name]
+      revision => $revision,
+      owner    => 'nelhage',
+      group    => 'nelhage'
     }
   }
 
