@@ -1,7 +1,7 @@
 class codesearch {
   user {
     'nelhage':
-      uid        => 1000,
+      uid        => 10000,
       managehome => true,
       shell      => '/bin/bash',
   }
