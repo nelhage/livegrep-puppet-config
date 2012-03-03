@@ -121,6 +121,12 @@ class codesearch {
     group    => 'nelhage',
     require  => Vcsrepo['/home/nelhage/codesearch']
   }
+  file { '/home/nelhage/codesearch/web/log4js.codesearch.json':
+    source   => "puppet:///modules/codesearch/log4js.codesearch.json",
+    owner    => 'nelhage',
+    group    => 'nelhage',
+    require  => Vcsrepo['/home/nelhage/codesearch']
+  }
   checkout { '/home/nelhage/libgit2':
     source => "https://github.com/libgit2/libgit2.git"
   }
