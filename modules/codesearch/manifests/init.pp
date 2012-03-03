@@ -151,4 +151,5 @@ class codesearch {
 
   include codesearch::nginx
   include codesearch::app
+  include codesearch::monitoring
 }
