@@ -14,7 +14,7 @@
       "type": "file",
       "filename": "web/log/codesearch.log",
       "category": "codesearch",
-      "level": "DEBUG",
+      "level": "INFO",
       "layout": {
         "type": "basic"
       }
@@ -32,6 +32,15 @@
       "type": "file",
       "filename": "web/log/web.log",
       "category": "web",
+      "level": "DEBUG",
+      "layout": {
+        "type": "basic"
+      }
+    },
+    {
+      "type": "file",
+      "filename": "web/log/socket.io.log",
+      "category": "socket.io",
       "level": "DEBUG",
       "layout": {
         "type": "basic"
