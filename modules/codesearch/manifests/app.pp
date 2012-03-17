@@ -22,4 +22,16 @@ class codesearch::app {
     mode   => 0755
   }
 
+  file { '/mnt/log':
+    ensure => 'directory',
+    owner  => 'nelhage',
+    group  => 'nelhage',
+    mode   => 0755
+  }
+
+  file { '/home/nelhage/codesearch/web/log':
+    ensure => 'symlink',
+    target => '/mnt/log',
+    require => Checkout['/home/nelhage/codesearch']
+  }
 }
