@@ -34,4 +34,16 @@ class codesearch::app {
     target => '/mnt/log',
     require => Checkout['/home/nelhage/codesearch']
   }
+
+  package { 'supervisor':
+    ensure => 'installed'
+  }
+
+  file { '/etc/supervisor/conf.d/':
+    source  => 'puppet:///modules/codesearch/supervisor',
+    recurse => true,
+    purge   => false,
+    owner   => 'root',
+    group   => 'root'
+  }
 }
