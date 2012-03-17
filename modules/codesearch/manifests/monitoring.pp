@@ -1,5 +1,5 @@
 class codesearch::monitoring {
-  package { 'munin-node':
+  package { ['munin-node', 'munin-plugins-extra']:
     ensure => 'installed'
   }
 
