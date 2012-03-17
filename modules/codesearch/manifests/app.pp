@@ -14,4 +14,12 @@ class codesearch::app {
     user    => 'nelhage',
     path    => '/usr/bin:/bin'
   }
+
+  file { '/home/nelhage/build-all':
+    source => 'puppet:///modules/codesearch/build-all',
+    owner  => 'nelhage',
+    group  => 'nelhage',
+    mode   => 0755
+  }
+
 }
