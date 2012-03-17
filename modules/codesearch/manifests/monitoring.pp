@@ -3,12 +3,13 @@ class codesearch::monitoring {
     ensure => 'installed'
   }
 
-  file { '/etc/munin/munin-node.conf':
-    source => 'puppet:///modules/codesearch/munin-node.conf',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    notify => Service['munin-node']
+  file { '/etc/munin':
+    source  => 'puppet:///modules/codesearch/munin/',
+    recurse => 'true',
+    purge   => false,
+    owner   => 'munin',
+    group   => 'munin',
+    notify  => Service['munin-node']
   }
 
   service { 'munin-node':
