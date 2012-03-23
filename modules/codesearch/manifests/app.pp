@@ -29,10 +29,33 @@ class codesearch::app {
     mode   => 0755
   }
 
+  codesearch::thirdparty::checkout { '/home/nelhage/codesearch':
+    source   => "git@nelhage.com:codesearch",
+    revision => 'origin/master'
+  }
+  file { '/home/nelhage/codesearch/Makefile.config':
+    source   => "puppet:///modules/codesearch/Makefile.config",
+    owner    => 'nelhage',
+    group    => 'nelhage',
+    require  => Vcsrepo['/home/nelhage/codesearch']
+  }
+  file { '/home/nelhage/codesearch/web/config.local.js':
+    source   => "puppet:///modules/codesearch/config.local.js",
+    owner    => 'nelhage',
+    group    => 'nelhage',
+    require  => Vcsrepo['/home/nelhage/codesearch']
+  }
+  file { '/home/nelhage/codesearch/web/log4js.codesearch.json':
+    source   => "puppet:///modules/codesearch/log4js.codesearch.json",
+    owner    => 'nelhage',
+    group    => 'nelhage',
+    require  => Vcsrepo['/home/nelhage/codesearch']
+  }
+
   file { '/home/nelhage/codesearch/web/log':
     ensure => 'symlink',
     target => '/mnt/log',
-    require => Checkout['/home/nelhage/codesearch']
+    require => Vcsrepo['/home/nelhage/codesearch']
   }
 
   package { 'supervisor':
