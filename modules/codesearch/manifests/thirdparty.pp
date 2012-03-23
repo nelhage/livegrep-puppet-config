@@ -35,7 +35,11 @@ class codesearch::thirdparty {
     source => 'https://github.com/json-c/json-c.git'
   }
 
-  include codesearch::nginx
-  include codesearch::app
-  include codesearch::monitoring
+  file { '/home/nelhage/build-all':
+    source => 'puppet:///modules/codesearch/build-all',
+    owner  => 'nelhage',
+    group  => 'nelhage',
+    mode   => 0755
+  }
+
 }
