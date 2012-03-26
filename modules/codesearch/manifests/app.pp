@@ -16,11 +16,19 @@ class codesearch::app {
   }
 
   file { '/home/nelhage/build-codesearch':
-    source => 'puppet:///modules/codesearch/build-',
+    source => 'puppet:///modules/codesearch/build-codesearch',
     owner  => 'nelhage',
     group  => 'nelhage',
     mode   => 0755
   }
+
+#  exec { '/home/nelhage/build-codesearch':
+#    creates => '/home/nelhage/codesearch/codesearch',
+#    cwd     => '/home/nelhage',
+#    user    => 'nelhage',
+#    require => [File['/home/nelhage/codesearch/Makefile.config'],
+#                File['/home/nelhage/sw/.installed']]
+#  }
 
   file { '/mnt/log':
     ensure => 'directory',

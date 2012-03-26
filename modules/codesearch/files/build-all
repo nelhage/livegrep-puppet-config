@@ -2,6 +2,8 @@
 
 set -e;
 
+export HOME=$(getent passwd "$(id -un)"  | awk -F: '{print $6}')
+
 cd "$(dirname "$0")"
 
 (
@@ -9,11 +11,6 @@ cd "$(dirname "$0")"
     ./configure  --prefix ~/sw/
     make -j4
     make install
-)
-
-(
-    cd codesearch/re2
-    make -j4
 )
 
 (
@@ -44,3 +41,5 @@ cd "$(dirname "$0")"
     make -j4
     make install
 )
+
+touch sw/.installed
