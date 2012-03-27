@@ -42,16 +42,19 @@ class codesearch::thirdparty {
     mode   => 0755
   }
 
-#  exec { '/home/nelhage/build-all':
-#    cwd     => '/home/nelhage',
-#    creates => '/home/nelhage/sw/.installed',
-#    user    => 'nelhage',
-#    timeout => 0,
-#    require => [Checkout['/home/nelhage/gflags'],
-#                Checkout['/home/nelhage/node'],
-#                Checkout['/home/nelhage/npm'],
-#                Checkout['/home/nelhage/json-c']]
-#  }
-#
-#  file { '/home/nelhage/sw/.installed': }
+  exec { '/home/nelhage/build-all':
+    cwd     => '/home/nelhage',
+    creates => '/home/nelhage/sw/.installed',
+    user    => 'nelhage',
+    timeout => 0,
+    require => [Checkout['/home/nelhage/gflags'],
+                Checkout['/home/nelhage/node'],
+                Checkout['/home/nelhage/npm'],
+                Checkout['/home/nelhage/json-c']]
+  }
+
+  file { '/home/nelhage/sw/.installed':
+    require => Exec['/home/nelhage/build-all'],
+    ensure  => file
+  }
 }

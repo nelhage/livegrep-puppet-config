@@ -1,4 +1,11 @@
+#!/bin/sh
 set -e;
+
+exec >/tmp/build-codesearch
+exec 2>&1
+
+export HOME=$(getent passwd "$(id -un)"  | awk -F: '{print $6}')
+export PATH=$PATH:$HOME/sw/bin/
 
 cd "$(dirname "$0")"
 
