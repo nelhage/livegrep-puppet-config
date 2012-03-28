@@ -1,4 +1,6 @@
 class codesearch {
+  $build_deps = 'false'
+
   user {
     'nelhage':
       uid        => 10000,
@@ -94,5 +96,10 @@ class codesearch {
   include codesearch::nginx
   include codesearch::app
   include codesearch::monitoring
-  include codesearch::thirdparty
+  if $build_deps == 'true' {
+    include codesearch::thirdparty
+  }
+  else {
+    include codesearch::thirdparty_dl
+  }
 }
