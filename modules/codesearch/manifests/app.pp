@@ -37,7 +37,7 @@ class codesearch::app {
     mode   => 0755
   }
 
-  codesearch::thirdparty::checkout { '/home/nelhage/codesearch':
+  codesearch::util::checkout { '/home/nelhage/codesearch':
     source   => "git@nelhage.com:codesearch",
     revision => 'origin/master'
   }
