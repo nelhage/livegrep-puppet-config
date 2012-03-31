@@ -33,10 +33,10 @@ class codesearch::thirdparty {
     creates => '/home/nelhage/sw/.installed',
     user    => 'nelhage',
     timeout => 0,
-    require => [Checkout['/home/nelhage/gflags'],
-                Checkout['/home/nelhage/node'],
-                Checkout['/home/nelhage/npm'],
-                Checkout['/home/nelhage/json-c']]
+    require => [Codesearch::Util::Checkout['/home/nelhage/gflags'],
+                Codesearch::Util::Checkout['/home/nelhage/node'],
+                Codesearch::Util::Checkout['/home/nelhage/npm'],
+                Codesearch::Util::Checkout['/home/nelhage/json-c']]
   }
 
   file { '/home/nelhage/sw/.installed':
