@@ -81,7 +81,8 @@ class codesearch {
 
   package { ['build-essential', 'libsparsehash-dev', 'libjson0-dev',
              'cmake', 'zlib1g-dev', 'python', 'libssl-dev', 'gdb',
-             'autotools-dev', 'autoconf', 'libtool', 'libboost-dev']:
+             'autotools-dev', 'autoconf', 'libtool', 'libboost-dev',
+             's3cmd']:
     ensure => installed
   }
 
