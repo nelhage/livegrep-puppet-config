@@ -70,7 +70,7 @@ class codesearch {
     }
   }
 
-  dotfile { ['tmux.conf', 'bashrc', 'environment', 'gitconfig']: }
+  dotfile { ['tmux.conf', 'bashrc', 'environment', 'gitconfig', 's3cfg']: }
 
   sshkey { 'nelhage.com':
     type => 'ssh-rsa',
