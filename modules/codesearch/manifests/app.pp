@@ -77,4 +77,10 @@ class codesearch::app {
     owner   => 'root',
     group   => 'root'
   }
+
+  file { '/etc/logrotate.d/codesearch':
+    source  => 'puppet:///modules/codesearch/logrotate.conf',
+    owner   => 'root',
+    group   => 'root',
+  }
 }
