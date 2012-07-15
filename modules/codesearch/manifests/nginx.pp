@@ -19,6 +19,10 @@ class codesearch::nginx {
     require => Package['nginx']
   }
 
+  file { '/etc/nginx/sites-enabled/default':
+    ensure  => absent,
+  }
+
   service { 'nginx':
     ensure  => 'running',
     require => Package['nginx']
