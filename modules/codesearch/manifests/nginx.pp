@@ -1,5 +1,5 @@
 class codesearch::nginx {
-  package { 'nginx':
+  package { ['nginx', 'varnish']:
     ensure => installed
   }
 
@@ -26,5 +26,28 @@ class codesearch::nginx {
   service { 'nginx':
     ensure  => 'running',
     require => Package['nginx']
+  }
+
+  file { '/etc/varnish/default.vcl':
+    source  => 'puppet:///modules/codesearch/default.vcl',
+    mode    => 0644,
+    owner   => 'root',
+    group   => 'root',
+    notify  => Service['varnish'],
+    require => Package['varnish']
+  }
+
+  file { '/etc/default/varnish':
+    source  => 'puppet:///modules/codesearch/varnish',
+    mode    => 0644,
+    owner   => 'root',
+    group   => 'root',
+    notify  => Service['varnish'],
+    require => Package['varnish']
+  }
+
+  service { 'varnish':
+    ensure  => 'running',
+    require => Package['varnish']
   }
 }
