@@ -1,5 +1,5 @@
 class codesearch {
-  $build_deps = 'false'
+  $deps = 'apt'
 
   user {
     'nelhage':
@@ -96,10 +96,10 @@ class codesearch {
   include codesearch::nginx
   include codesearch::app
   include codesearch::monitoring
-  if $build_deps == 'true' {
-    include codesearch::thirdparty
-  }
-  else {
-    include codesearch::thirdparty_dl
+
+  case $deps {
+    build: { include codesearch::thirdparty }
+    dl: { include codesearch::thirdparty_dl }
+    apt: { include codesearch::thirdparty_apt }
   }
 }

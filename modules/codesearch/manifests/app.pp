@@ -39,7 +39,8 @@ class codesearch::app {
 
   codesearch::util::checkout { '/home/nelhage/codesearch':
     source   => "git@nelhage.com:codesearch",
-    revision => 'origin/master'
+    revision => 'origin/master',
+    require  => File['/home/nelhage/.ssh']
   }
   file { '/home/nelhage/codesearch/Makefile.config':
     source   => "puppet:///modules/codesearch/Makefile.config",
