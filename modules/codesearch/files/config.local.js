@@ -4,7 +4,7 @@ var linux = '/home/nelhage/linux/';
 
 module.exports.SEARCH_REPO = linux;
 module.exports.SEARCH_ARGS = ['--threads=4'];
-module.exports.SEARCH_REF  = "refs/tags/v3.6";
+module.exports.SEARCH_REF  = "v3.7";
 module.exports.BACKEND_CONNECTIONS = 8;
 module.exports.LOG4JS_CONFIG = path.join(__dirname, "log4js.codesearch.json");
 module.exports.SLOW_THRESHOLD = 200;
