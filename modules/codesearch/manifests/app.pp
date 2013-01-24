@@ -1,4 +1,6 @@
 class codesearch::app {
+  include daemontools
+
   file { '/home/nelhage/linux':
     ensure => 'directory',
     owner  => 'nelhage',
@@ -68,15 +70,19 @@ class codesearch::app {
   }
 
   package { 'supervisor':
-    ensure => 'installed'
+    ensure => absent
   }
 
-  file { '/etc/supervisor/conf.d/':
-    source  => 'puppet:///modules/codesearch/supervisor',
-    recurse => true,
-    purge   => false,
-    owner   => 'root',
-    group   => 'root'
+  daemontools::service { 'web-server':
+    program  => "node /home/nelhage/codesearch/web/web_server.js --production",
+    preamble => "cd /home/nelhage/codesearch",
+    user     => 'nelhage'
+  }
+
+  daemontools::service { 'cs-server':
+    program  => "node /home/nelhage/codesearch/web/cs_server.js",
+    preamble => "cd /home/nelhage/codesearch",
+    user     => 'nelhage'
   }
 
   file { '/etc/logrotate.d/codesearch':
