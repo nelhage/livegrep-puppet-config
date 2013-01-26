@@ -5,5 +5,4 @@ set -e
 
 <%= preamble -%>
 
-setuidgid <%= user %> <%= program %>
-
+exec setuidgid <%= user %> <%= program %>

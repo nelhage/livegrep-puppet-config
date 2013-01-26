@@ -21,7 +21,7 @@ define daemontools::service(
     }
 
     file { "/etc/service/$name/log/run":
-      content  => "#!/bin/sh\nmultilog t /mnt/log/${name}.log\n",
+      content  => template('daemontools/multilog.erb'),
       mode     => 0755
     }
 }
