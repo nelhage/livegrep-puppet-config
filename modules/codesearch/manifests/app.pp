@@ -48,15 +48,18 @@ class codesearch::app {
     source   => "puppet:///modules/codesearch/Makefile.config",
     owner    => 'nelhage',
     group    => 'nelhage',
-    require  => Vcsrepo['/home/nelhage/codesearch']
-  }
-  file { '/home/nelhage/codesearch/web/config.local.js':
+    require  => Vcsrepo['/home/nelhage/codesearch'];
+  '/home/nelhage/codesearch/web/config.local.js':
     source   => "puppet:///modules/codesearch/config.local.js",
     owner    => 'nelhage',
     group    => 'nelhage',
-    require  => Vcsrepo['/home/nelhage/codesearch']
-  }
-  file { '/home/nelhage/codesearch/web/log4js.codesearch.json':
+    require  => Vcsrepo['/home/nelhage/codesearch'];
+  '/home/nelhage/codesearch/web/aosp.json':
+    source   => "puppet:///modules/codesearch/aosp.json",
+    owner    => 'nelhage',
+    group    => 'nelhage',
+    require  => Vcsrepo['/home/nelhage/codesearch'];
+  '/home/nelhage/codesearch/web/log4js.codesearch.json':
     source   => "puppet:///modules/codesearch/log4js.codesearch.json",
     owner    => 'nelhage',
     group    => 'nelhage',
@@ -79,10 +82,21 @@ class codesearch::app {
     user     => 'nelhage'
   }
 
-  daemontools::service { 'cs-server':
-    program  => "node /home/nelhage/codesearch/web/cs_server.js",
+  daemontools::service { 'cs-server-linux':
+    program  => "node /home/nelhage/codesearch/web/cs_server.js -b linux",
     preamble => "cd /home/nelhage/codesearch",
     user     => 'nelhage'
+  }
+
+  daemontools::service { 'cs-server-aosp':
+    program  => "node /home/nelhage/codesearch/web/cs_server.js -b aosp",
+    preamble => "cd /home/nelhage/codesearch",
+    user     => 'nelhage'
+  }
+
+  daemontools::service { 'cs-server':
+    program => '',
+    ensure => absent
   }
 
   file { '/etc/logrotate.d/codesearch':

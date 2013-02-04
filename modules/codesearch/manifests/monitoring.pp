@@ -12,6 +12,10 @@ class codesearch::monitoring {
     notify  => Service['munin-node']
   }
 
+  file { ['/etc/munin/plugins/cs_perf_slow', '/etc/munin/plugins/cs_perf_fast']:
+    ensure => absent
+  }
+
   service { 'munin-node':
     ensure  => 'running',
     require => Package['munin-node']

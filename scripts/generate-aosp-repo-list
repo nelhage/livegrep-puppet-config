@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+var fs     = require('fs'),
+    path   = require('path'),
+    spawn  = require('child_process').spawn;
+
+var aosp_dir = process.argv[2];
+if (aosp_dir === undefined) {
+  console.error("Usage: node %s /path/to/aosp", process.argv[1]);
+  process.exit(1);
+}
+
+var project_list = path.join(aosp_dir, ".repo/project.list");
+var projects = fs.readFileSync(project_list, 'utf-8').split(/\n/);
+var repos = [];
+projects.forEach(function (project) {
+  if (project === '')
+    return;
+  if (/^prebuilts/.test(project))
+    return;
+  if (project === 'external/icu4c' || project === 'external/svox')
+    return;
+  var repo = {
+    name: project,
+    path: path.join(aosp_dir, project),
+    refs: [ "HEAD" ],
+    github: 'android/platform_' + project.replace(new RegExp('/', 'g'), '_')
+  };
+  repos.push(repo);
+});
+
+console.log("%j", repos);
