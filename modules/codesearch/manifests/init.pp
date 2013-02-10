@@ -50,16 +50,6 @@ class codesearch {
     ensure => installed
   }
 
-  file { '/home/nelhage/.ssh':
-    source => 'puppet:///modules/codesearch/nelhage/.ssh',
-    ensure => 'directory',
-    recurse => 'true',
-    purge  => 'false',
-    owner  => 'nelhage',
-    group  => 'nelhage',
-    require => User['nelhage']
-  }
-
   define dotfile {
     file { "/home/nelhage/.${name}":
       source => "puppet:///modules/codesearch/nelhage/.${name}",
@@ -71,11 +61,6 @@ class codesearch {
   }
 
   dotfile { ['tmux.conf', 'bashrc', 'environment', 'gitconfig', 's3cfg']: }
-
-  sshkey { 'nelhage.com':
-    type => 'ssh-rsa',
-    key  => 'AAAAB3NzaC1yc2EAAAABIwAAAQEAu8bGx+toQQl4ey3UgiQwj9RmCCpJbIyGDQnzCb0yMsMbAfLQwTRyIo9P71YJ3PYL+Egn2iEhWHZpz/1cetJWED8EcGAliuFhWjIA71CgOVGpQMlMCPeWN0rhvadqmHzA4R6/QRp4hjbxDPS7qmfM0ZwbMl4eDFmdifrdVTAFEmSrSunXBDUiRFbToMOA8SIhlHs/O07SJ2OhM0UgHOTZzCuQJ2fVWpzQHbgxrYRqTshXRgA2eIi9pBFCyOH6WUWS+YNCV4xU6yJQdmayA/q2yer0JWlU6a06fiTpSNCN8HZdhuEaVfka/7jIrFmO+jGxKTcvhqTNfNQjDnqaQCejpw=='
-  }
 
   # Development stuff
 

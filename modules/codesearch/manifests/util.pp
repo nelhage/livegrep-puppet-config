@@ -4,7 +4,7 @@ class codesearch::util {
       ensure   => present,
       provider => $provider,
       source   => $source,
-      require  => [User['nelhage'], Sshkey['nelhage.com'],
+      require  => [User['nelhage'],
                    Package['git'], Package['subversion']],
       identity => '/home/nelhage/.ssh/id_rsa',
       revision => $revision,
