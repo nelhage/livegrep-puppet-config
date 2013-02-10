@@ -36,9 +36,14 @@ module.exports.BACKENDS = {
 
 module.exports.LOG4JS_CONFIG = path.join(__dirname, "log4js.codesearch.json");
 module.exports.SLOW_THRESHOLD = 200;
-module.exports.SMTP_CONFIG = {
-  host: 'smtp.gmail.com',
-  user: 'mailer@livegrep.com',
-  ssl:   true,
-  password: '1fMq4aheht6U'
-};
+try {
+    var pass = fs.readFileSync(path.join(__dirname, "smtp-password"), 'utf8').trim();
+    module.exports.SMTP_CONFIG = {
+        host: 'smtp.gmail.com',
+        user: 'mailer@livegrep.com',
+        ssl:   true,
+        password: pass,
+    };
+} catch (e) {
+    console.warn("Unable to read SMTP password: %j", e);
+}
