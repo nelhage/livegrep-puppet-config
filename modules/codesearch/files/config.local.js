@@ -30,6 +30,7 @@ module.exports.BACKENDS = {
     pretty_name: "AOSP v4.2.1",
      repos: JSON.parse(fs.readFileSync(path.join(__dirname, "aosp.json"))),
     sort: [],
+    search_args: [ '--timeout=3000' ]
   }
 }
 
