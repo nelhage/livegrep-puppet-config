@@ -10,11 +10,6 @@ export PATH=$PATH:$HOME/sw/bin/
 cd "$(dirname "$0")"
 
 (
-    cd codesearch/re2
-    make -j4
-)
-
-(
     cd codesearch
     npm install .
     make -j4
