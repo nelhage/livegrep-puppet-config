@@ -40,7 +40,7 @@ class codesearch::app {
   }
 
   codesearch::util::checkout { '/home/nelhage/codesearch':
-    source   => "http://github.com/nelhage/codesearch",
+    source   => "http://github.com/nelhage/livegrep",
     revision => 'origin/master',
   }
   file { '/home/nelhage/codesearch/Makefile.config':
