@@ -8,14 +8,14 @@ class codesearch::app {
   }
 
   $idx_url = "https://s3.amazonaws.com/livegrep/codesearch.idx"
-  exec { "codesearch.idx":
-    command => "wget -N ${idx_url}",
-    cwd     => "/home/nelhage/linux/",
-    creates => "/home/nelhage/linux/codesearch.idx",
-    require => File['/home/nelhage/linux'],
-    user    => 'nelhage',
-    path    => '/usr/bin:/bin'
-  }
+#  exec { "codesearch.idx":
+#    command => "wget -N ${idx_url}",
+#    cwd     => "/home/nelhage/linux/",
+#    creates => "/home/nelhage/linux/codesearch.idx",
+#    require => File['/home/nelhage/linux'],
+#    user    => 'nelhage',
+#    path    => '/usr/bin:/bin'
+#  }
 
   file { '/home/nelhage/build-codesearch':
     source => 'puppet:///modules/codesearch/build-codesearch',
@@ -37,6 +37,10 @@ class codesearch::app {
     owner  => 'nelhage',
     group  => 'nelhage',
     mode   => 0755
+  }
+
+  codesearch::util::checkout { '/home/nelhage/linux':
+    source => "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
   }
 
   codesearch::util::checkout { '/home/nelhage/codesearch':
