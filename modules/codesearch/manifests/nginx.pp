@@ -1,6 +1,17 @@
 class codesearch::nginx {
-  package { ['nginx', 'varnish']:
+  apt::source { 'nginx':
+    location => "http://nginx.org/packages/ubuntu/",
+    repos    => "nginx",
+    key      => "573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62",
+    ensure   => 'absent'
+  }
+
+  package { 'nginx':
     ensure => installed
+  }
+
+  package { 'varnish':
+    ensure => absent
   }
 
   file { '/etc/nginx/sites-available/codesearch':
@@ -12,42 +23,19 @@ class codesearch::nginx {
     require => Package['nginx']
   }
 
-  file { '/etc/nginx/sites-enabled/codesearch':
+  file { '/etc/nginx/conf.d/codesearch.conf':
     ensure  => 'symlink',
     target  => '../sites-available/codesearch',
     notify  => Service['nginx'],
     require => Package['nginx']
   }
 
-  file { '/etc/nginx/sites-enabled/default':
+  file { '/etc/nginx/conf.d/default':
     ensure  => absent,
   }
 
   service { 'nginx':
     ensure  => 'running',
     require => Package['nginx']
-  }
-
-  file { '/etc/varnish/default.vcl':
-    source  => 'puppet:///modules/codesearch/default.vcl',
-    mode    => 0644,
-    owner   => 'root',
-    group   => 'root',
-    notify  => Service['varnish'],
-    require => Package['varnish']
-  }
-
-  file { '/etc/default/varnish':
-    source  => 'puppet:///modules/codesearch/varnish',
-    mode    => 0644,
-    owner   => 'root',
-    group   => 'root',
-    notify  => Service['varnish'],
-    require => Package['varnish']
-  }
-
-  service { 'varnish':
-    ensure  => 'running',
-    require => Package['varnish']
   }
 }
