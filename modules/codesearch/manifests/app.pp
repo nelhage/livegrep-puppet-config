@@ -52,17 +52,17 @@ class codesearch::app {
     owner    => 'nelhage',
     group    => 'nelhage',
     require  => Vcsrepo['/home/nelhage/codesearch'];
-  '/home/nelhage/codesearch/web/config.local.js':
+  '/home/nelhage/codesearch/js/config.local.js':
     source   => "puppet:///modules/codesearch/config.local.js",
     owner    => 'nelhage',
     group    => 'nelhage',
     require  => Vcsrepo['/home/nelhage/codesearch'];
-  '/home/nelhage/codesearch/web/aosp.json':
+  '/home/nelhage/codesearch/js/aosp.json':
     source   => "puppet:///modules/codesearch/aosp.json",
     owner    => 'nelhage',
     group    => 'nelhage',
     require  => Vcsrepo['/home/nelhage/codesearch'];
-  '/home/nelhage/codesearch/web/log4js.codesearch.json':
+  '/home/nelhage/codesearch/js/log4js.codesearch.json':
     source   => "puppet:///modules/codesearch/log4js.codesearch.json",
     owner    => 'nelhage',
     group    => 'nelhage',
