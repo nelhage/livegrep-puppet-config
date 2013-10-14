@@ -80,19 +80,19 @@ class codesearch::app {
   }
 
   daemontools::service { 'web-server':
-    program  => "node /home/nelhage/codesearch/web/web_server.js --production",
+    program  => "node /home/nelhage/codesearch/bin/web_server.js --production",
     preamble => "cd /home/nelhage/codesearch",
     user     => 'nelhage'
   }
 
   daemontools::service { 'cs-server-linux':
-    program  => "node /home/nelhage/codesearch/web/cs_server.js -b linux",
+    program  => "node /home/nelhage/codesearch/bin/cs_server.js -b linux",
     preamble => "cd /home/nelhage/codesearch",
     user     => 'nelhage'
   }
 
   daemontools::service { 'cs-server-aosp':
-    program  => "node /home/nelhage/codesearch/web/cs_server.js -b aosp",
+    program  => "node /home/nelhage/codesearch/bin/cs_server.js -b aosp",
     preamble => "cd /home/nelhage/codesearch",
     user     => 'nelhage'
   }
