@@ -39,8 +39,8 @@ module.exports.SLOW_THRESHOLD = 200;
 try {
     var pass = fs.readFileSync(path.join(__dirname, "smtp-password"), 'utf8').trim();
     module.exports.SMTP_CONFIG = {
-        host: 'smtp.gmail.com',
-        user: 'mailer@livegrep.com',
+        host: 'smtp.mailgun.org',
+        user: 'postmaster@mg.nelhage.com',
         ssl:   true,
         password: pass,
     };
