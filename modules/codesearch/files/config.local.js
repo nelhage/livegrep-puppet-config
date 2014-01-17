@@ -10,12 +10,12 @@ module.exports.BACKENDS = {
     connections: 8,
     index: path.join(__dirname, "../../linux/codesearch.idx"),
     name: "linux",
-    pretty_name: "Linux v3.11",
+    pretty_name: "Linux v3.12",
     repos: [
       {
         path: path.join(__dirname, "../../linux"),
         name: "",
-        refs: ["v3.11"],
+        refs: ["v3.12"],
         github: "torvalds/linux",
       }
     ],
